@@ -5,7 +5,7 @@ import HabitsCard from "./Main/HabitsCard";
 // import useLocalStorage from "./hooks/useLocalStorage";
 import { getCurrentWeeeks } from "./utils/dates";
 
-function Main({onTogle,habits}) {
+function Main({onTogle,habits,openEditModal}) {
 
   // const [habits, setHabits] = useLocalStorage('habit:v1',mockHabits) //main jsx ga uztttik
 
@@ -19,7 +19,7 @@ function Main({onTogle,habits}) {
           {/* habits card */}
         
           {habits.map((habit) => {
-           return <HabitsCard toggles={onTogle} daysWeak={currentWeek} key={habit.id} habit= {habit}/>
+           return <HabitsCard openEditModal={openEditModal} toggles={onTogle} daysWeak={currentWeek} key={habit.id} habit= {habit} />
           })}
         </main>
   )

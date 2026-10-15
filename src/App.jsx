@@ -6,11 +6,53 @@ import Main from "./components/Main";
 import Statistik from "./components/Statistik";
 import useLocalStorage from "./components/hooks/useLocalStorage";
 import { mockHabits } from "./components/prosta/Mockhabits";
+import AddHabitsModal from "./components/modals/AddHabitsModal";
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('home')
-
+  const [isModal, setIsModal] = useState(false)
+  const [editingHabits, setEditingHabits] = useState(null)
   const [habits, setHabits] = useLocalStorage('habit:v1',mockHabits)
+
+  const openEditModal = (habit) => {
+    setEditingHabits(habit)
+    setIsModal(true)
+  }
+
+  const editHabits = (id, yangiNom) => {
+    const yangilanganOdatlar = habits.map((habit) => {
+      if(habit.id === id){
+        return {...habit, name: yangiNom}
+      }
+      return habit
+    })
+    setHabits(yangilanganOdatlar)
+  }
+
+  const handleOpenAdd = () => {
+    setEditingHabits(null); // Qutini tozalaymiz
+    setIsModal(true);       // Oynani ochamiz
+  }
+
+  const deleteHabits = (id) => {
+    const qoldanOdatlar = habits.filter((habit) => {
+      return habit.id !== id
+    })
+
+    setHabits(qoldanOdatlar)
+  }
+  
+  const addHabits = (yangiNom) => {
+    const now = Date.now()
+    const yangiOdat = {
+      id: now,
+      name: yangiNom,
+      completedDates: []
+    }
+
+    setHabits([...habits, yangiOdat])
+  }
+
    const onTogle = (habitId, date) => {
     const newHabits = habits.map((h) => {
       if(h.id !== habitId) {
@@ -37,12 +79,15 @@ const App = () => {
   return (
     <div className="w-full max-w-md mx-auto h-dvh bg-bg flex flex-col overflow-hidden relative">
       {/* header qismi */}
-      <Header/>
+      <Header setModal={handleOpenAdd}/>
+
+      {/* add modal  */}
+      {isModal && <AddHabitsModal editHabits={editHabits} setModal={setIsModal} addHabits={addHabits} editingHabits={editingHabits} deleteHabits={deleteHabits}/>}
 
       {/* asosiy qism */}
       <div className="flex-1 min-h-0 overflow-y-auto">
-        {activeTab === 'home' && <Main habits={habits} onTogle={onTogle}/>}
-      {activeTab === 'statistika' && <Statistik/>}
+        {activeTab === 'home' && <Main habits={habits} onTogle={onTogle} openEditModal={openEditModal}/>}
+        {activeTab === 'statistika' && <Statistik/>}
       </div>
 
       {/* footer qismi */}
