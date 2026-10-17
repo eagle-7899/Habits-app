@@ -87,11 +87,11 @@ const App = () => {
       {/* asosiy qism */}
       <div className="flex-1 min-h-0 overflow-y-auto">
         {activeTab === 'home' && <Main habits={habits} onTogle={onTogle} openEditModal={openEditModal}/>}
-        {activeTab === 'statistika' && <Statistik/>}
+        {activeTab === 'statistika' && <Statistik habits={habits}/>}
       </div>
 
       {/* footer qismi */}
-      <Footer activeTab={activeTab} setActiveTab={setActiveTab}/>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} habits={habits}/>
     </div>
   );
 };
