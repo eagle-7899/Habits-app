@@ -9,7 +9,7 @@ export const getCurrentWeeeks = () => {
      // .startOf('isoWeek') esa bugungi kundan orqaga qaytib, shu haftaning aniq Dushanba kunini topadi.
     const startofWeek = dayjs().startOf('isoWeek')
 
-    const labels = ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh', 'Ya'];
+    const labels = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'    ];
 
     // endi loop yozamiz
     for(let i = 0; i < 7; i++) {

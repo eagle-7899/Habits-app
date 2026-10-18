@@ -13,7 +13,7 @@ function Main({onTogle,habits,openEditModal}) {
 
 
   return (
-        <main>
+        <main className="bg-white/25 backdrop-blur-md border border-white/30 rounded-2xl p-4 shadow-sm mx-3 mt-4 mb-4">
           <DaysRow daysWeak = {currentWeek}/>
 
           {/* habits card */}

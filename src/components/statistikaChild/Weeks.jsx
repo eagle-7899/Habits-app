@@ -1,4 +1,4 @@
-function Weeks({ habits }) {
+function Weeks({ habits = [] }) {
   const oxrgi7kun = [];
   const bugun = new Date();
   
