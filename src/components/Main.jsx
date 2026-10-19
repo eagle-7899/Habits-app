@@ -13,7 +13,9 @@ function Main({onTogle,habits,openEditModal}) {
 
 
   return (
-        <main className="bg-white/25 backdrop-blur-md border border-white/30 rounded-2xl p-4 shadow-sm mx-3 mt-4 mb-4">
+       <div className="mx-3 mt-4 mb-4">
+        {habits.length > 0 ? (
+           <main className="bg-white/25 backdrop-blur-md border border-white/30 rounded-2xl p-4 shadow-sm">
           <DaysRow daysWeak = {currentWeek}/>
 
           {/* habits card */}
@@ -22,6 +24,19 @@ function Main({onTogle,habits,openEditModal}) {
            return <HabitsCard openEditModal={openEditModal} toggles={onTogle} daysWeak={currentWeek} key={habit.id} habit= {habit} />
           })}
         </main>
+        ) : (
+          <div className="flex flex-col items-center justify-center mt-20 text-center px-4">
+          <span className="text-6xl mb-4 opacity-80">🌱</span>
+          <h3 className="text-xl font-bold text-white mb-2 tracking-wide">
+            No habits yet
+          </h3>
+          <p className="text-slate-100/80 text-[15px] font-medium leading-relaxed">
+            Tap the <span className="font-bold text-white">+</span> button above to add your<br/>
+            first habit
+          </p>
+        </div>
+        )}
+       </div>
   )
 }
 

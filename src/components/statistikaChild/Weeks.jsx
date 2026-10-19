@@ -41,20 +41,21 @@ function Weeks({ habits = [] }) {
 
   return (
     <div className="flex flex-col gap-3 p-4">
-    <h2 className="text-center">Haftalik ko'rsatkichlar</h2>
 
-    <div className="flex justify-between gap-2">
-      <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 w-[48%]">
-        <h2 className="text-center">Hafta davomida</h2>
-        <h1 className="text-center text-blue-500 font-bold">{haftaDavomidaJami}</h1>
+    {habits.length > 0 ? (
+      <>
+      <div className="flex justify-between gap-2">
+      <div className="bg-white/25 backdrop-blur-md border border-white/30 shadow-sm p-4 rounded-2xl shadow-sm w-[48%]">
+        <h2 className="text-sm h-12 font-semibold text-slate-600 uppercase tracking-wider text-center">📅 This Week</h2>
+        <h1 className="text-center text-4xl font-extrabold text-slate-800 mt-1 drop-shadow-sm">{haftaDavomidaJami}</h1>
       </div>
-      <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 w-[48%]">
-        <h2 className="text-center">Bugungi natija</h2>
-        <p className="text-center font-bold">{bugunBajarilgan}/{habits.length}</p>
+      <div className="bg-white/25 backdrop-blur-md border border-white/30 shadow-sm p-4 rounded-2xl shadow-sm w-[48%]">
+        <h2 className="text-center h-12 text-sm font-semibold text-slate-600 uppercase tracking-wider">🎯 Today's Result</h2>
+        <p className="text-center text-4xl font-extrabold text-slate-800 mt-1 drop-shadow-sm">{bugunBajarilgan}/{habits.length}</p>
       </div>
     </div>
 
-     <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-4">
+     <div className="bg-white/25 backdrop-blur-md border border-white/30 shadow-sm p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-4">
        {haftalikStat.map((iteam, i) => {
         return (
           <div 
@@ -62,18 +63,28 @@ function Weeks({ habits = [] }) {
             className="flex flex-col gap-2 border-b border-gray-100 pb-3 last:border-0 last:pb-0"
           >
             <div className="flex justify-between">
-              <p>{iteam.name} <span>({iteam.soni} marta)</span></p>
-              <p>{iteam.foiz}%</p>
+              <p className="text-lg font-bold text-slate-800">{iteam.name} <span className="font-medium text-slate-500 text-sm">({iteam.soni} times)</span></p>
+              <p className="font-bold text-emerald-600 text-lg">{iteam.foiz}%</p>
             </div>
 
             {/* harakatlanuchi bar */}
-            <div className="w-full bg-gray-100 h-2.5 rounded-full">
-              <div className="bg-blue-600 h-2.5 rounded-full transition-all duration-500" style={{ width: `${iteam.foiz}%` }}></div>
+            <div className="w-full bg-gray-100 h-2.5 mb-1 rounded-full">
+              <div className="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style={{ width: `${iteam.foiz}%` }}></div>
             </div>
           </div>
         );
       })}
      </div>
+      </>
+    ) : (
+      <div className="flex flex-col items-center justify-center mt-20 text-center px-4">
+          <span className="text-6xl mb-4 opacity-90">📊</span>
+          <h3 className="text-xl font-bold text-white mb-2 tracking-wide">No stats to show</h3>
+          <p className="text-white/80 font-medium mt-2 leading-relaxed text-[15px]">
+            Add some habits first to<br/>track your weekly progress
+          </p>
+        </div>
+    )}
     </div>
   );
 }
